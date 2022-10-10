@@ -11,10 +11,10 @@ function App() {
   const classes = useStyles();
 
   return (
-    <React>
+    <React.Fragment>
       <div className={classes.root}>
       </div>
-    </React>
+    </React.Fragment>
   );
 }
 

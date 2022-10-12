@@ -5,14 +5,14 @@ const Schema = new mongoose.Schema(
     email: {
       type: String,
     },
+    dob: {
+      type: String,
+    },
+    name: {
+      type: String,
+    },
     password: {
-      type: String,
-    },
-    firstName: {
-      type: String,
-    },
-    lastName: {
-      type: String,
+      type: String
     }
   },
   {

@@ -57,7 +57,7 @@ module.exports = class user {
                     return;
                 }
 
-                this.userModel.find({ email: /matt/, function (err, docs) {}}).then((user) => {
+                this.userModel.find({ email: new RegExp(req.params.email, 'i'), function (err, docs) {}}).then((user) => {
                     res.status(200).json(user || {})
                 }).catch((err) => {
                     res.status(400).json({
@@ -196,7 +196,7 @@ module.exports = class user {
                 //return res.json(test)
 
                 /*          else {
-                            
+
                          } */
             } catch (err) {
                 console.error(`[ERROR] post:users/ -> ${err}`)

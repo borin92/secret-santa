@@ -42,6 +42,40 @@ module.exports = class user {
     }
 
     /**
+     * show by email
+     */
+    showByEmail() {
+        this.app.get('/users/:email', (req, res) => {
+            try {
+                // if (!req.params.email) {
+                //     res.status(400).json({
+                //         status: 400,
+                //         message: 'Bad Request : Please use a email in the query string parameter'
+                //     })
+                //
+                //     return;
+                // }
+
+                this.userModel.find({ email: 'matthieu.leverger@my-digital-school.org', function (err, docs) {}}).then((user) => {
+                    res.status(200).json(user || {})
+                }).catch((err) => {
+                    res.status(400).json({
+                        status: 400,
+                        message: err
+                    })
+                })
+            } catch (err) {
+                console.error(`[ERROR] get:email/:email -> ${err}`)
+
+                res.status(500).json({
+                    status: 500,
+                    message: 'Internal Server Error'
+                })
+            }
+        })
+    }
+
+    /**
      * showAll
      */
     showAll() {
@@ -172,6 +206,7 @@ module.exports = class user {
      */
     run() {
         this.show()
+        this.showByEmail()
         this.showAll()
         this.delete()
         this.update()

@@ -1,6 +1,5 @@
 const giftModel = require('../models/gift.js');
 
-
 module.exports = class gift {
     constructor(app, connect) {
         this.app = app;
@@ -179,3 +178,4 @@ module.exports = class gift {
         this.create()
     }
 }
+

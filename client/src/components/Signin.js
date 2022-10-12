@@ -7,12 +7,7 @@ function Signin() {
     const [password, setPassword] = useState("");
     const [passwordVerif, setPasswordVerif] = useState("");
 
-    const HandleClick = useCallback(
-        () => {
-            first
-        },
-        [second],
-    )
+
 
     return (
         <>
@@ -35,7 +30,7 @@ function Signin() {
 
                 onChange={(e) => { setPasswordVerif(e.target.value) }}
             />
-            <Button onClick={HandleClick}>submit</Button>
+            <Button >submit</Button>
         </>
     )
 }

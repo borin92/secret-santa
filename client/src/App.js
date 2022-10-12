@@ -5,6 +5,8 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import Login from './components/Login'
+import Signin from './components/Signin';
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,9 +22,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Test></Test>}>
+          <Route path="/" element={<Login></Login>}>
 
           </Route>
+          <Route path="/signin" element={<Signin></Signin>}></Route>
         </Routes>
 
       </Router></>

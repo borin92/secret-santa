@@ -1,10 +1,9 @@
-const giftModel = require('../models/gift.js');
+const userModel = require("../models/user.js");
 
-
-module.exports = class gift {
+module.exports = class user {
     constructor(app, connect) {
         this.app = app;
-        this.giftModel = connect.model('gift', giftModel);
+        this.userModel = connect.model('user', userModel);
         this.run();
     }
 
@@ -12,7 +11,7 @@ module.exports = class gift {
      * show
      */
     show() {
-        this.app.get('/gift/:id', (req, res) => {
+        this.app.get('/user/:id', (req, res) => {
             try {
                 if (!req.params.id) {
                     res.status(400).json({
@@ -23,8 +22,8 @@ module.exports = class gift {
                     return;
                 }
 
-                this.giftModel.findById(req.params.id).then((gift) => {
-                    res.status(200).json(gift || {})
+                this.userModel.findById(req.params.id).then((user) => {
+                    res.status(200).json(user || {})
                 }).catch((err) => {
                     res.status(400).json({
                         status: 400,
@@ -32,7 +31,7 @@ module.exports = class gift {
                     })
                 })
             } catch (err) {
-                console.error(`[ERROR] get:gifts/:id -> ${err}`)
+                console.error(`[ERROR] get:users/:id -> ${err}`)
 
                 res.status(500).json({
                     status: 500,
@@ -46,7 +45,7 @@ module.exports = class gift {
      * delete
      */
     delete() {
-        this.app.delete('/gift/:id', (req, res) => {
+        this.app.delete('/user/:id', (req, res) => {
             try {
                 if (!req.params.id) {
                     res.status(400).json({
@@ -57,8 +56,8 @@ module.exports = class gift {
                     return;
                 }
 
-                this.giftModel.deleteOne({ _id: req.params.id }).then((gift) => {
-                    res.status(200).json(gift || {})
+                this.userModel.deleteOne({_id: req.params.id}).then((user) => {
+                    res.status(200).json(user || {})
                 }).catch((err) => {
                     res.status(400).json({
                         status: 400,
@@ -66,7 +65,7 @@ module.exports = class gift {
                     })
                 })
             } catch (err) {
-                console.error(`[ERROR] delete:gifts/:id -> ${err}`)
+                console.error(`[ERROR] delete:users/:id -> ${err}`)
 
                 res.status(500).json({
                     status: 500,
@@ -80,7 +79,7 @@ module.exports = class gift {
      * update
      */
     update() {
-        this.app.put('/gift/:id', (req, res) => {
+        this.app.put('/user/:id', (req, res) => {
             try {
                 if (!req.params.id) {
                     res.status(400).json({
@@ -91,14 +90,14 @@ module.exports = class gift {
                     return;
                 }
 
-                const options = { new: true, runValidators: true };
+                const options = {new: true, runValidators: true};
 
-                this.giftModel.findByIdAndUpdate(
+                this.userModel.findByIdAndUpdate(
                   req.params.id,
                   req.body,
                   options
-                ).then((giftUpdated) => {
-                    res.status(200).json(giftUpdated || {})
+                ).then((userUpdated) => {
+                    res.status(200).json(userUpdated || {})
                 }).catch((err) => {
                     res.status(400).json({
                         status: 400,
@@ -106,7 +105,7 @@ module.exports = class gift {
                     })
                 })
             } catch (err) {
-                console.error(`[ERROR] delete:gifts/:id -> ${err}`)
+                console.error(`[ERROR] delete:users/:id -> ${err}`)
 
                 res.status(500).json({
                     status: 500,
@@ -119,13 +118,13 @@ module.exports = class gift {
     /**
      * create
      */
-    create () {
-        this.app.post('/gift/', (req, res) => {
+    create() {
+        this.app.post('/user/', (req, res) => {
             try {
-                const giftModel = new this.giftModel(req.body)
+                const userModel = new this.userModel(req.body)
 
-                giftModel.save().then((gift) => {
-                    res.status(200).json(gift || {})
+                userModel.save().then((user) => {
+                    res.status(200).json(user || {})
                 }).catch((err) => {
                     res.status(400).json({
                         status: 400,
@@ -133,7 +132,7 @@ module.exports = class gift {
                     })
                 })
             } catch (err) {
-                console.error(`[ERROR] post:gifts/ -> ${err}`)
+                console.error(`[ERROR] post:users/ -> ${err}`)
 
                 res.status(500).json({
                     status: 500,
@@ -146,7 +145,7 @@ module.exports = class gift {
     /**
      * Run crud
      */
-    run () {
+    run() {
         this.show()
         this.delete()
         this.update()

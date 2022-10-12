@@ -1,0 +1,164 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin: 40px;
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+    white-space: nowrap;
+}
+
+.cardimg {
+}
+
+.cardcontent {
+    height: 39%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.cardcontent {
+    font-size: 14px;
+}
+
+.cardfooter {
+    height: 12%;
+    background: rgb(235, 235, 235);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/*.cardbutton {*/
+/*    background: lightgreen;*/
+/*    position: absolute;*/
+/*    width: 40px;*/
+/*    height: 40px;*/
+/*    border-radius: 50%;*/
+/*    transform: translate(150px, 128px);*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    transition: 0.1s ease-in;*/
+/*}*/
+
+.cardbutton:hover {
+    background: cyan;
+}
+
+.cardfooter h3 {
+    font-size: 0.8em;
+}
+
+.cardreadme {
+    color: rgb(150, 150, 150);
+}
+
+.cardcontent p:nth-child(1) {
+    font-size: 0.8em;
+}
+
+.cardcontent h3 {
+    font-size: 14px;
+}
+
+.cardcontent p:nth-child(2) {
+    font-size: 0.9em;
+}
+
+.email {
+    white-space: pre-wrap;
+}
+
+.click-arrow, .icon {
+    width: 20px;
+    height: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    border: 2px darkgrey solid;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+}
+
+.divInputCreate {
+    margin: 30px auto;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: center;
+    width: 95%;
+    height: 40px;
+}
+
+.iconInput {
+    width: 5%;
+    background-color: #00abff;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+}
+
+.book {
+    padding: 5px 10px;
+    width: 30px;
+    height: 30px;
+}
+
+input {
+    width: 95%;
+    background-color: white;
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 0 5px 5px 0;
+    border: 2px darkgrey solid;
+    color: black;
+}
+
+input::placeholder {
+     color: darkgrey;
+ }
+
+.btnAdd {
+    cursor: pointer;
+    background-color: #00abff;
+    border: none;
+    border-radius: 3px;
+    width: 95%;
+    padding: 10px 5px;
+    color: white;
+    font-size: 15px;
+    margin: 0 auto 20px;
+    transition: 1s ease-in;
+}
+
+.btnAdd:hover {
+    background-color: #ff4d4a;
+}

@@ -9,6 +9,7 @@ import Login from './components/Login'
 import Signin from './components/Signin';
 import Admin from './components/adminDashboard';
 import Verification from './components/Verification';
+import Dashboard from './components/Dashboard';
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,9 +25,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Test></Test>} />
-          <Route path="/admin" element={<Admin></Admin>} ></Route>          
+          <Route path="/" element={<Login></Login>}></Route>
+          <Route path="/admin" element={<Admin></Admin>} ></Route>
           <Route path="/signin" element={<Signin></Signin>}></Route>
+          <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
           <Route path="/login" element={<Login></Login>}></Route>
         </Routes>
 

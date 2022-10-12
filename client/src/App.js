@@ -36,8 +36,5 @@ function App() {
   );
 }
 
-const Test = () => {
-  return <p>hello world</p>
-}
 
 export default App;

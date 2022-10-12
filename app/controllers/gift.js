@@ -43,6 +43,31 @@ module.exports = class gift {
     }
 
     /**
+     * showAll
+     */
+    showAll() {
+        this.app.get('/gifts', (req, res) => {
+            try {
+                this.giftModel.find().then((gifts) => {
+                    res.status(200).json(gifts)
+                }).catch((err) => {
+                    res.status(400).json({
+                        status: 400,
+                        message: err
+                    })
+                })
+            } catch (err) {
+                console.error(`[ERROR] get:gifts -> ${err}`)
+
+                res.status(500).json({
+                    status: 500,
+                    message: 'Internal Server Error'
+                })
+            }
+        })
+    }
+
+    /**
      * delete
      */
     delete() {
@@ -148,6 +173,7 @@ module.exports = class gift {
      */
     run () {
         this.show()
+        this.showAll()
         this.delete()
         this.update()
         this.create()

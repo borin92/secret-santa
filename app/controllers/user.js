@@ -42,6 +42,31 @@ module.exports = class user {
     }
 
     /**
+     * showAll
+     */
+    showAll() {
+        this.app.get('/users', (req, res) => {
+            try {
+                this.userModel.find().then((users) => {
+                    res.status(200).json(users)
+                }).catch((err) => {
+                    res.status(400).json({
+                        status: 400,
+                        message: err
+                    })
+                })
+            } catch (err) {
+                console.error(`[ERROR] get:users -> ${err}`)
+
+                res.status(500).json({
+                    status: 500,
+                    message: 'Internal Server Error'
+                })
+            }
+        })
+    }
+
+    /**
      * delete
      */
     delete() {
@@ -147,6 +172,7 @@ module.exports = class user {
      */
     run() {
         this.show()
+        this.showAll()
         this.delete()
         this.update()
         this.create()

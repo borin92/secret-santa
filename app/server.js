@@ -56,7 +56,7 @@ module.exports = class Server {
   }
 
   routes() {
-    new routes.users(this.app, this.connect);
+    new routes.user(this.app, this.connect);
     new routes.gift(this.app, this.connect);
 
     this.app.use((req, res) => {

@@ -1,5 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -11,11 +17,20 @@ function App() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      <div className={classes.root}>
-      </div>
-    </React.Fragment>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Test></Test>}>
+
+          </Route>
+        </Routes>
+
+      </Router></>
   );
+}
+
+const Test = () => {
+  return <p>hello world</p>
 }
 
 export default App;

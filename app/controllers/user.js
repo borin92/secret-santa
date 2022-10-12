@@ -1,9 +1,10 @@
+const { json } = require("express");
 const userModel = require("../models/user.js");
 
 module.exports = class user {
     constructor(app, connect) {
         this.app = app;
-        this.userModel = connect.model('user', userModel);
+        this.userModel = connect.model('users', userModel);
         this.run();
     }
 
@@ -81,7 +82,7 @@ module.exports = class user {
                     return;
                 }
 
-                this.userModel.deleteOne({_id: req.params.id}).then((user) => {
+                this.userModel.deleteOne({ _id: req.params.id }).then((user) => {
                     res.status(200).json(user || {})
                 }).catch((err) => {
                     res.status(400).json({
@@ -115,12 +116,12 @@ module.exports = class user {
                     return;
                 }
 
-                const options = {new: true, runValidators: true};
+                const options = { new: true, runValidators: true };
 
                 this.userModel.findByIdAndUpdate(
-                  req.params.id,
-                  req.body,
-                  options
+                    req.params.id,
+                    req.body,
+                    options
                 ).then((userUpdated) => {
                     res.status(200).json(userUpdated || {})
                 }).catch((err) => {
@@ -144,18 +145,25 @@ module.exports = class user {
      * create
      */
     create() {
-        this.app.post('/user/', (req, res) => {
+        this.app.post('/user', async (req, res) => {
             try {
-                const userModel = new this.userModel(req.body)
 
-                userModel.save().then((user) => {
-                    res.status(200).json(user || {})
-                }).catch((err) => {
-                    res.status(400).json({
-                        status: 400,
-                        message: err
+                const query = await this.userModel.findOneAndUpdate({ email: req.body.email }, { $set: { password: req.body.password } })
+                if (!query) {
+                    res.status(500).json({
+                        status: 500,
+                        message: 'We cant find you in the database, please ask your admin to create an account'
                     })
-                })
+                }
+                else (res.status(200).json({
+                    query
+                }))
+
+                //return res.json(test)
+
+                /*          else {
+                            
+                         } */
             } catch (err) {
                 console.error(`[ERROR] post:users/ -> ${err}`)
 

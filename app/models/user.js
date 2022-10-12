@@ -2,17 +2,17 @@ const mongoose = require("mongoose");
 
 const Schema = new mongoose.Schema(
   {
-    Email: {
+    email: {
       type: String,
     },
-    Password: {
+    dob: {
       type: String,
     },
-    FirstName: {
+    name: {
       type: String,
     },
-    LastName: {
-      type: String,
+    password: {
+      type: String
     }
   },
   {

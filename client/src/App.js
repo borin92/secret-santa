@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Login from './components/Login'
 import Signin from './components/Signin';
+import Admin from './components/adminDashboard';
 
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +23,8 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Login></Login>}>
+          <Route path="/" element={<Test></Test>} />
+          <Route path="/admin" element={<Admin></Admin>} >           
 
           </Route>
           <Route path="/signin" element={<Signin></Signin>}></Route>

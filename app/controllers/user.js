@@ -79,8 +79,6 @@ module.exports = class user {
         this.app.post('/user/connect', (req, res) => {
             try {
                 this.userModel.find({ email: req.body.email, function(err, docs) { } }).then((user) => {
-                    console.log(user[0].password)
-                    console.log(req.body.password)
                     if (user[0].password === req.body.password) res.status(200).json(user || {})
                     else {
                         res.status(400).json({

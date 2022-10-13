@@ -118,9 +118,9 @@ module.exports = class gift {
                 const options = { new: true, runValidators: true };
 
                 this.giftModel.findByIdAndUpdate(
-                  req.params.id,
-                  req.body,
-                  options
+                    req.params.id,
+                    req.body,
+                    options
                 ).then((giftUpdated) => {
                     res.status(200).json(giftUpdated || {})
                 }).catch((err) => {
@@ -143,19 +143,49 @@ module.exports = class gift {
     /**
      * create
      */
-    create () {
-        this.app.post('/gift/', (req, res) => {
+    create() {
+        this.app.post('/gift/addOne', (req, res) => {
+            const giftModel = new this.giftModel(req.body)
             try {
-                const giftModel = new this.giftModel(req.body)
+                this.giftModel.find({ id: req.body.santa, function(err, docs) { } }).then((gift) => {
+                    console.log(gift)
+                    if (gift[0]) {
+                        this.giftModel.findByIdAndUpdate(gift[0].santa,
+                            {
 
-                giftModel.save().then((gift) => {
-                    res.status(200).json(gift || {})
+                                userGifted: req.body.userGifted,
+                                gift: req.body.gift,
+                                giftMessage: req.body.gift.message,
+
+                            }
+                        ).then((giftUpdated) => {
+                            console.log(giftUpdated)
+                            res.status(200).json(giftUpdated || {})
+                        }).catch((err) => {
+                            res.status(400).json({
+                                status: 400,
+                                message: err
+                            })
+                        })
+                    }
+                    else {
+                        giftModel.save().then((gift) => {
+                            res.status(200).json(gift || {})
+                        }).catch((err) => {
+                            res.status(400).json({
+                                status: 400,
+                                message: err
+                            })
+                        })
+                    }
+
                 }).catch((err) => {
                     res.status(400).json({
                         status: 400,
-                        message: err
+                        message: "wrong email"
                     })
                 })
+
             } catch (err) {
                 console.error(`[ERROR] post:gifts/ -> ${err}`)
 
@@ -170,7 +200,7 @@ module.exports = class gift {
     /**
      * Run crud
      */
-    run () {
+    run() {
         this.show()
         this.showAll()
         this.delete()

@@ -1,11 +1,42 @@
 
-import { Button, Link } from '@material-ui/core';
+
+import { 
+    Button, 
+    Link,
+    Grid,  
+    Paper,
+    Typography,
+    Avatar,
+     } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useState, useCallback } from 'react';
 import { useMutation } from 'react-query'
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+
+
+const useStyles = makeStyles(theme => ({
+    body: {
+        minWidth: '75% !important',
+        padding: '20px auto'
+    },
+    paperStyle: {
+        padding :30,
+        marginTop:30,
+        height:'73vh',
+        width:450, 
+        margin:"0 auto"
+   },
+   avatarStyle: {
+    backgroundColor:'#1bbd7e'
+   },
+   btnstyle: {
+    margin:'8px 0'
+   }
+ }));
+
 
 const createAccount = async (data) => {
-
 
     if (!data) return null
 
@@ -24,6 +55,7 @@ const createAccount = async (data) => {
 
 };
 function Signin() {
+    const classes = useStyles();
 
     const [error, setError] = useState("");
 
@@ -54,32 +86,64 @@ function Signin() {
             email: email,
             password: password
         })
-
-
     }
 
-
     return (
-        <><>
-            <TextField
-                variant="filled"
-                label="email"
-                value={email}
-                onChange={(e) => { setEmail(e.target.value); }} />
-            <TextField
-                variant="filled"
-                label="password"
-                value={password}
-                onChange={(e) => { setPassword(e.target.value); }} />
-            <TextField
-                variant="filled"
-                label="password"
-                value={passwordVerif}
+        <Grid className={ classes.body}>
+                    <Paper  className={classes.paperStyle}>
+                        <Grid align='center'>
+                            <Avatar className={classes.avatarStyle}><PersonAddAltIcon/></Avatar>
+                            <h2>Sign In</h2>
+                        </Grid>
+                        <TextField  
+                            sx={{ marginBottom: 5}}
+                            label="email"
+                            value={email}
+                            onChange={(e) => { setEmail(e.target.value); }}
+                            type="email"
+                            placeholder="Email"
+                            fullWidth
+                            variant="outlined"
+                            required
+                            autoFocus
+                        />
 
-                onChange={(e) => { setPasswordVerif(e.target.value); }} />
-            {error}
-            {valid ? <> {valid} <Link href="/login">Inscription</Link></> : ""}</><Button onClick={HandleClick}>submit</Button></>
-
+                  
+                        <TextField                        
+                            sx={{ marginBottom: 5}}
+                            label="password"
+                            value={password}
+                            onChange={(e) => { setPassword(e.target.value); }}
+                            type="password"
+                            placeholder="Password"
+                            fullWidth
+                            variant="outlined"
+                            required
+                        />
+                        <TextField                        
+                            sx={{ marginBottom: 5}}
+                            label="password"
+                            value={passwordVerif}
+                            onChange={(e) => { setPasswordVerif(e.target.value); }}
+                            type="password"
+                            placeholder="Password"
+                            fullWidth
+                            variant="outlined"
+                            required
+                        />
+                        
+                        {valid ? <> {valid} <Link href="/login">Inscription</Link></> : ""}
+                        <Button type='submit' color='primary' variant="contained" className={classes.btnstyle} fullWidth onClick={HandleClick}>
+                            submit
+                        </Button>
+ 
+                        <Typography > you have an account ?
+                            <Link href="/">
+                                Sign In
+                            </Link>
+                        </Typography>
+                    </Paper>
+            </Grid>
     )
 }
 

@@ -1,10 +1,43 @@
 
-import { Button, Link } from '@material-ui/core';
+import { 
+    Button, 
+    Link,
+    Grid,  
+    Paper,
+    Typography,
+    Avatar,
+     } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import { useMutation } from 'react-query'
 import Cookies from 'universal-cookie';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 
+
+
+const useStyles = makeStyles(theme => ({
+    body: {
+        minWidth: '75% !important',
+        padding: '20px auto'
+
+    },
+    paperStyle: {
+        padding :30,
+        marginTop:30,
+        height:'73vh',
+        width:450, 
+        margin:"0 auto"
+   },
+   avatarStyle: {
+    backgroundColor:'#1bbd7e'
+   },
+   btnstyle: {
+    margin:'8px 0'
+   }
+
+
+ }));
 
 const checkAccount = async (data) => {
     if (!data) return null
@@ -23,6 +56,7 @@ const checkAccount = async (data) => {
 
 };
 function Login() {
+    const classes = useStyles();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -48,24 +82,53 @@ function Login() {
             email: email,
             password: password
         })
-
-
     }
 
     return <>
-        <Link href="/signin">Inscription</Link>
-        <TextField
-            variant="filled"
-            label="email"
-            value={email}
-            onChange={(e) => { setEmail(e.target.value); }} />
-        <TextField
-            variant="filled"
-            label="password"
-            value={password}
-            onChange={(e) => { setPassword(e.target.value); }} />
-        {errors}
-        <Button onClick={HandleClick}>submit</Button>
+
+    <Grid className={ classes.body}>
+            <Paper  className={classes.paperStyle}>
+                <Grid align='center'>
+                     <Avatar className={classes.avatarStyle}><LoginOutlinedIcon/></Avatar>
+                    <h2>Sign In</h2>
+                </Grid>
+                <TextField  
+                    sx={{ marginBottom: 5}}
+                    label="email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); }}
+                    type="email"
+                    placeholder="Email"
+                    fullWidth
+                    variant="outlined"
+                    required
+                    autoFocus
+                />
+
+                <TextField
+                
+                    sx={{ marginBottom: 5}}
+                    label="password"
+                    value={password}
+                    onChange={(e) => { setPassword(e.target.value); }} 
+                    type="password"
+                    placeholder="Password"
+                    fullWidth
+                    variant="outlined"
+                    required
+                />
+                {errors}
+                
+                <Button type='submit' color='primary' variant="contained" className={classes.btnstyle} fullWidth onClick={HandleClick}>Sign in</Button>
+                
+                <Typography > Do you have an account ?
+                     <Link href="/signin">
+                        Sign Up 
+                    </Link>
+                </Typography>
+            </Paper>
+    </Grid>
+
     </>
 
 }

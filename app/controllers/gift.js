@@ -104,24 +104,15 @@ module.exports = class gift {
      * update
      */
     update() {
-        this.app.put('/update/gift/:id', (req, res) => {
+        this.app.post('/gift/updateStatus', (req, res) => {
             try {
-                if (!req.params.id) {
-                    res.status(400).json({
-                        status: 400,
-                        message: 'Bad Request : Please use a id in the query string parameter'
-                    })
-
-                    return;
-                }
-
-                const options = { new: true, runValidators: true };
-
+                console.log(req.body)
                 this.giftModel.findByIdAndUpdate(
-                    req.params.id,
-                    req.body,
-                    options
+                    req.body.santaId,
+                    { isValid: req.body.isValid },
+
                 ).then((giftUpdated) => {
+                    console.log(giftUpdated)
                     res.status(200).json(giftUpdated || {})
                 }).catch((err) => {
                     res.status(400).json({
@@ -148,18 +139,14 @@ module.exports = class gift {
             const giftModel = new this.giftModel(req.body)
             try {
                 this.giftModel.find({ id: req.body.santa, function(err, docs) { } }).then((gift) => {
-                    console.log(gift)
                     if (gift[0]) {
-                        this.giftModel.findByIdAndUpdate(gift[0].santa,
+                        this.giftModel.findOneAndUpdate({ santa: gift[0].santa },
                             {
-
                                 userGifted: req.body.userGifted,
                                 gift: req.body.gift,
-                                giftMessage: req.body.gift.message,
-
+                                giftMessage: req.body.giftMessage,
                             }
                         ).then((giftUpdated) => {
-                            console.log(giftUpdated)
                             res.status(200).json(giftUpdated || {})
                         }).catch((err) => {
                             res.status(400).json({

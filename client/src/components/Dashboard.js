@@ -6,11 +6,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import { Button, TextField } from "@material-ui/core";
 import { useMutation } from "react-query";
-import Cookies from 'universal-cookie';
+import Cookies from "universal-cookie";
 
 const createGift = async (data) => {
   if (!data) return null;
-  console.log(data)
+  console.log(data);
 
   const response = fetch("http://localhost:3000/gift/addOne", {
     method: "POST",
@@ -30,7 +30,6 @@ const createGift = async (data) => {
 };
 
 function DialogGift({ open, onClose, santaData, userId }) {
-
   const [gift, setGift] = useState("");
   const [message, setMessage] = useState("");
 
@@ -83,7 +82,7 @@ function DialogGift({ open, onClose, santaData, userId }) {
 
 function Cards({ query }) {
   const cookies = new Cookies();
-  const santaData = cookies.get('santaId')
+  const santaData = cookies.get("santaId");
   const { data: userList, isLoading, refetch } = useQuery(["user", query], () =>
     fetch(query).then((res) => res.json())
   );
@@ -123,7 +122,12 @@ function Cards({ query }) {
                   src="/right-arrow.png"
                 />
               </a>
-              <DialogGift santaData={santaData} userId={item.id} open={open} onClose={(e) => handleClose(e)} />
+              <DialogGift
+                santaData={santaData}
+                userId={item.id}
+                open={open}
+                onClose={(e) => handleClose(e)}
+              />
             </div>
           </div>
         ))}
@@ -138,16 +142,16 @@ const Dashboard = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const [query, setQuery] = useState("http://localhost:3000/users");
-  const HandleChange = useCallback((e) => {
-    console.log(e.target.value);
-    setQuery("http://localhost:3000/users/" + e.target.value);
-  }, []);
 
   const onSubmit = (event) => {
     event.preventDefault();
     setQuery("http://localhost:3000/users/" + event.currentTarget[0].value);
   };
+  const [query, setQuery] = useState("http://localhost:3000/users/limit/6");
+  const HandleChange = useCallback((e) => {
+    console.log(e.target.value);
+    setQuery("http://localhost:3000/users/" + e.target.value);
+  }, []);
 
   return (
     <>

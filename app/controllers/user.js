@@ -105,6 +105,40 @@ module.exports = class user {
     }
 
     /**
+     * showByNumber users
+     */
+    showByNumber() {
+        this.app.get('/users/limit/:nb', (req, res) => {
+            try {
+                if (!req.params.nb) {
+                    res.status(400).json({
+                        status: 400,
+                        message: 'Bad Request : Please use a number in the query string parameter'
+                    })
+
+                    return;
+                }
+
+                this.userModel.find().limit(req.params.nb).then((users) => {
+                    res.status(200).json(users)
+                }).catch((err) => {
+                    res.status(500).json({
+                        status: 500,
+                        message: err
+                    })
+                })
+            } catch (err) {
+                console.error(`[ERROR] get:users/:nb -> ${err}`)
+
+                res.status(500).json({
+                    status: 500,
+                    message: 'Internal Server Error'
+                })
+            }
+        })
+    }
+
+    /**
      * showAll
      */
     showAll() {
@@ -247,6 +281,7 @@ module.exports = class user {
         this.delete()
         this.update()
         this.create()
+        this.showByNumber()
         this.connectUser()
     }
 }

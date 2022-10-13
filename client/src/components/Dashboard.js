@@ -11,16 +11,18 @@ function Cards({ query }) {
       <h2>{(userList || []).length + ' utilisateur(s) trouvé(s)'}</h2>
       <div className={'container'}>
         {(userList || []).map(item => (
-          <div className={'card'}>
-            <img className={'cardimg'} src='/icon-santa.png' alt={'santa claus'} />
-            <div className={'cardcontent'}>
-              <p>Né(e) le : {item.dob}</p>
-              <h3>{item.name}</h3>
-              <p className={'email'}>{item.email}</p>
-            </div>
-            <div className={'cardfooter'}>
-              <h3>Cadeaux</h3>
-              <a className={'click-arrow'} href="#"><img className={'icon'} alt={'right-arrow'} src='/right-arrow.png' /></a>
+          <div className={'containerCard'}>
+            <div className={'card'}>
+              <img className={'cardimg'} src='/icon-santa.png' alt={'santa claus'} />
+              <div className={'cardcontent'}>
+                <p>Né(e) le : {item.dob}</p>
+                <h3>{item.name}</h3>
+                <p className={'email'}>{item.email}</p>
+              </div>
+              <div className={'cardfooter'}>
+                <h3>Cadeaux</h3>
+                <a className={'click-arrow'} href="#"><img className={'icon'} alt={'right-arrow'} src='/right-arrow.png' /></a>
+              </div>
             </div>
           </div>
         ))}
@@ -31,7 +33,7 @@ function Cards({ query }) {
 
 const Dashboard = () => {
   const { register, reset, formState: { errors } } = useForm();
-  const [query, setQuery] = useState("http://localhost:3000/users")
+  const [query, setQuery] = useState("http://localhost:3000/users/limit/6")
   const HandleChange = useCallback(
     (e) => {
       console.log(e.target.value)
@@ -44,8 +46,6 @@ const Dashboard = () => {
   const onSubmit = (event) => {
     event.preventDefault()
     setQuery('http://localhost:3000/users/' + event.currentTarget[0].value)
-
-    // reset();
   }
 
   return (

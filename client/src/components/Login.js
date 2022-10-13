@@ -70,8 +70,8 @@ function Login() {
             }
             else {
                 const cookies = new Cookies();
-
                 cookies.set("santa", data[0].name, { path: '/' });
+                cookies.set("santaId", data[0].id, { path: '/' });
             }
         },
 

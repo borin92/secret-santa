@@ -2,19 +2,19 @@ const mongoose = require("mongoose");
 
 const Schema = new mongoose.Schema(
   {
-    Santa: {
+    santa: {
       type: String,
     },
-    UserGifted: {
+    userGifted: {
       type: String,
     },
-    Gift: {
+    gift: {
       type: String,
     },
-    GiftMessage: {
+    giftMessage: {
       type: String,
     },
-    IsValid: {
+    isValid: {
       type: String,
     }
   },

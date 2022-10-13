@@ -104,7 +104,7 @@ module.exports = class gift {
      * update
      */
     update() {
-        this.app.put('/gift/:id', (req, res) => {
+        this.app.put('/update/gift/:id', (req, res) => {
             try {
                 if (!req.params.id) {
                     res.status(400).json({

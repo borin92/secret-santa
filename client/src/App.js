@@ -33,16 +33,12 @@ function App() {
     <>
       <Router>
         <Routes>
-
           <>
             <Route path="/" element={<Login></Login>}></Route>
             <Route path="/admin" element={auth ? <Admin></Admin> : <Navigate to='/' />}></Route>
             <Route path="/signin" element={<Signin></Signin>}></Route>
             <Route path="/dashboard" element={auth ? <Dashboard></Dashboard> : <Navigate to='/' />}></Route>
           </>
-
-
-
         </Routes>
 
       </Router></>

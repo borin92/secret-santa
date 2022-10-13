@@ -2,7 +2,7 @@
 import { Button, Link } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
 import React, { useState, useCallback } from 'react';
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
 
 const createAccount = async (data) => {
 

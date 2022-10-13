@@ -57,12 +57,42 @@ module.exports = class user {
                     return;
                 }
 
-                this.userModel.find({ email: new RegExp(req.params.email, 'i'), function (err, docs) {}}).then((user) => {
+                this.userModel.find({ email: new RegExp(req.params.email, 'i'), function(err, docs) { } }).then((user) => {
                     res.status(200).json(user || {})
                 }).catch((err) => {
                     res.status(400).json({
                         status: 400,
                         message: err
+                    })
+                })
+            } catch (err) {
+                console.error(`[ERROR] get:email/:email -> ${err}`)
+
+                res.status(500).json({
+                    status: 500,
+                    message: 'Internal Server Error'
+                })
+            }
+        })
+    }
+    connectUser() {
+        this.app.post('/user/connect', (req, res) => {
+            try {
+                this.userModel.find({ email: req.body.email, function(err, docs) { } }).then((user) => {
+                    console.log(user[0].password)
+                    console.log(req.body.password)
+                    if (user[0].password === req.body.password) res.status(200).json(user || {})
+                    else {
+                        res.status(400).json({
+                            status: 400,
+                            message: "wrong password or email"
+                        })
+                    }
+
+                }).catch((err) => {
+                    res.status(400).json({
+                        status: 400,
+                        message: "wrong email"
                     })
                 })
             } catch (err) {
@@ -219,5 +249,6 @@ module.exports = class user {
         this.delete()
         this.update()
         this.create()
+        this.connectUser()
     }
 }

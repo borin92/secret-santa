@@ -1,10 +1,10 @@
-import React, {useCallback, useState} from "react";
-import {useForm} from "react-hook-form";
-import {useMutation, useQuery} from "react-query";
+import React, { useCallback, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation, useQuery } from "react-query";
 import "../style/dashboard.css";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-import {Button, TextField} from "@material-ui/core";
+import { Button, Card, TextField } from "@material-ui/core";
 import Cookies from "universal-cookie";
 
 const createGift = async (data) => {
@@ -29,7 +29,7 @@ const createGift = async (data) => {
 function DialogGift({ open, onClose, santaData, userId }) {
   const [gift, setGift] = useState("");
   const [message, setMessage] = useState("");
-
+  console.log(santaData, userId)
   const mutation = useMutation(createGift, {
     onSuccess: (data) => {
       console.log(data);
@@ -77,14 +77,11 @@ function DialogGift({ open, onClose, santaData, userId }) {
   );
 }
 
-function Cards({ query }) {
+function CardItem({ item }) {
   const cookies = new Cookies();
   const santaData = cookies.get("santaId");
-  const { data: userList } = useQuery(["user", query], () =>
-    fetch(query).then((res) => res.json())
-  );
   const [open, setOpen] = useState(false);
-
+  console.log(santaData)
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -93,69 +90,52 @@ function Cards({ query }) {
     e.preventDefault();
     setOpen(false);
   };
+  return <div className={"userCard"}>
+    <div className={"userInfo"}>
+      <div>
+        <img
+          className={"santa"}
+          src="/icon-santa.png"
+          alt={"santa claus"}
+        />
+      </div>
+      <div>
+        <p className={"userInfoName"}><strong>{item.name}</strong> (Né le {item.dob})</p>
+        <p className={"userInfoEmail"}>{item.email}</p>
+      </div>
+    </div>
+    <div>
+      <button className={"giftBtn"} onClick={handleClickOpen}>
+        Cadeau
+      </button>
+      <DialogGift
+        santaData={santaData}
+        userId={item.id}
+        open={open}
+        onClose={(e) => handleClose(e)}
+      />
+    </div>
+  </div>
+
+}
+
+function Cards({ query }) {
+
+  const { data: userList } = useQuery(["user", query], () =>
+    fetch(query).then((res) => res.json())
+  );
+
 
   return (
     <>
       <h2>{(userList || []).length + " utilisateur(s) trouvé(s)"}</h2>
       <div className={"container"}>
         {(userList || []).map((item) => (
-          <div className={"userCard"}>
-            <div className={"userInfo"}>
-              <div>
-                <img
-                  className={"santa"}
-                  src="/icon-santa.png"
-                  alt={"santa claus"}
-                />
-              </div>
-              <div>
-                <p className={"userInfoName"}><strong>{item.name}</strong> (Né le {item.dob})</p>
-                <p className={"userInfoEmail"}>{item.email}</p>
-              </div>
-            </div>
-            <div>
-              <button className={"giftBtn"} onClick={handleClickOpen}>
-                Cadeau
-              </button>
-              <DialogGift
-                santaData={santaData}
-                userId={item.id}
-                open={open}
-                onClose={(e) => handleClose(e)}
-              />
-            </div>
-          </div>
+          <CardItem item={item}></CardItem>
 
 
 
-          // <div className={"card"}>
-          //   <img
-          //     className={"cardimg"}
-          //     src="/icon-santa.png"
-          //     alt={"santa claus"}
-          //   />
-          //   <div className={"cardcontent"}>
-          //     <p>Né(e) le : {item.dob}</p>
-          //     <h3>{item.name}</h3>
-          //     <p className={"email"}>{item.email}</p>
-          //   </div>
-          //   <div className={"cardfooter"}>
-          //     <h3>Cadeaux</h3>
-          //     <a className={"click-arrow"} onClick={handleClickOpen}>
-          //       <img
-          //         className={"icon"}
-          //         alt={"right-arrow"}
-          //         src="/right-arrow.png"
-          //       />
-          //     </a>
-          //     <DialogGift
-          //       santaData={santaData}
-          //       userId={item.id}
-          //       open={open}
-          //       onClose={(e) => handleClose(e)}
-          //     />
-          //   </div>
-          // </div>
+
         ))}
       </div>
     </>

@@ -102,26 +102,24 @@ function Cards({ query }) {
       <h2>{(userList || []).length + " utilisateur(s) trouvé(s)"}</h2>
       <div className={"container"}>
         {(userList || []).map((item) => (
-          <div className={"card"}>
-            <img
-              className={"cardimg"}
-              src="/icon-santa.png"
-              alt={"santa claus"}
-            />
-            <div className={"cardcontent"}>
-              <p>Né(e) le : {item.dob}</p>
-              <h3>{item.name}</h3>
-              <p className={"email"}>{item.email}</p>
-            </div>
-            <div className={"cardfooter"}>
-              <h3>Cadeaux</h3>
-              <a className={"click-arrow"} onClick={handleClickOpen}>
+          <div className={"userCard"}>
+            <div className={"userInfo"}>
+              <div>
                 <img
-                  className={"icon"}
-                  alt={"right-arrow"}
-                  src="/right-arrow.png"
+                  className={"santa"}
+                  src="/icon-santa.png"
+                  alt={"santa claus"}
                 />
-              </a>
+              </div>
+              <div>
+                <p className={"userInfoName"}><strong>{item.name}</strong> (Né le {item.dob})</p>
+                <p className={"userInfoEmail"}>{item.email}</p>
+              </div>
+            </div>
+            <div>
+              <button className={"giftBtn"} onClick={handleClickOpen}>
+                Cadeau
+              </button>
               <DialogGift
                 santaData={santaData}
                 userId={item.id}
@@ -130,6 +128,37 @@ function Cards({ query }) {
               />
             </div>
           </div>
+
+
+
+          // <div className={"card"}>
+          //   <img
+          //     className={"cardimg"}
+          //     src="/icon-santa.png"
+          //     alt={"santa claus"}
+          //   />
+          //   <div className={"cardcontent"}>
+          //     <p>Né(e) le : {item.dob}</p>
+          //     <h3>{item.name}</h3>
+          //     <p className={"email"}>{item.email}</p>
+          //   </div>
+          //   <div className={"cardfooter"}>
+          //     <h3>Cadeaux</h3>
+          //     <a className={"click-arrow"} onClick={handleClickOpen}>
+          //       <img
+          //         className={"icon"}
+          //         alt={"right-arrow"}
+          //         src="/right-arrow.png"
+          //       />
+          //     </a>
+          //     <DialogGift
+          //       santaData={santaData}
+          //       userId={item.id}
+          //       open={open}
+          //       onClose={(e) => handleClose(e)}
+          //     />
+          //   </div>
+          // </div>
         ))}
       </div>
     </>
@@ -155,30 +184,28 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1>Liste des utilisateurs</h1>
-      <form onSubmit={onSubmit}>
-        <div className={"divInputCreate"}>
-          <div>
-            <img
-              className={"book"}
-              alt={"right-arrow"}
-              src="/right-arrow.png"
+      <div className={"wrapper"}>
+        <div className={"panel"}>
+          <h1>Liste des utilisateurs</h1>
+          <form onSubmit={onSubmit}>
+            <input
+              {...register("newtodo", {})}
+              type="text"
+              id="searchUser"
+              autoComplete="off"
+              placeholder="Recherche"
+              onChange={(e) => HandleChange(e)}
+              className={"search"}
             />
-          </div>
-          <input
-            {...register("newtodo", {})}
-            type="text"
-            id="searchUser"
-            autoComplete="off"
-            placeholder="Recherche"
-            onChange={(e) => HandleChange(e)}
-          />
+            <button type="submit" className={"searchBtn"}>
+              Rechercher
+            </button>
+          </form>
         </div>
-        <button type="submit" className={"btnAdd"}>
-          Rechercher
-        </button>
-      </form>
-      <Cards query={query}></Cards>
+        <div className={"panel"}>
+          <Cards query={query}></Cards>
+        </div>
+      </div>
     </>
   );
 };

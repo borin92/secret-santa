@@ -14,12 +14,11 @@ import Dashboard from './components/Dashboard';
 import Cookies from 'universal-cookie';
 import { useState } from 'react';
 
-
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: "50%",
-    margin: "0 auto"
+    margin: "0 auto",
+    padding: "0"
   }
 }));
 function App() {

@@ -35,10 +35,6 @@ export default function Admin() {
         <CardAdmin santa={item.santa} userGifted={item.userGifted} gift={item.gift} message={item.giftMessage} id={item.id} status={item.isValid} />
       ))}
 
-      {/*    {(giftList || []).map(item => (
-        // console.log(item)
-        <CardAdmin santa={item.santa} userGifted={item.userGifted} gift={item.gift} message={item.giftMessage} id={item.id} status={item.isValid} />
-      ))} */}
     </div>
 
   )

@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         textTransform: 'capitalize'
     }
- 
 }));
 
 export default function Admin() {
@@ -20,7 +19,6 @@ export default function Admin() {
     <div>
         <Typography sx={{  marginBottom: 10 }} variant="h3" className={classes.title} >Admin dashboard</Typography>
         {(giftList || []).map(item => (
-            // console.log(item)
             <CardAdmin santa={ item.santa } userGifted={ item.userGifted } gift={item.gift} message={item.giftMessage} id={item.id} status={item.isValid}/>
         ))}
     </div>

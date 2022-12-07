@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
@@ -62,6 +62,17 @@ const CardAdmin = ({ santa, userGifted, gift, message, id, status }) => {
   const queryUser = 'http://localhost:3000/user/';
   // const queryGift = 'http://localhost:3000/update/gift/';
   const classes = useStyles();
+  const [chip, setChip] = useState({});
+
+  useEffect(() => {
+    if ('reject' === status) {
+      setChip({label: 'Refusée', color: 'error'})
+    } else if ('done' === status) {
+      setChip({label: 'Acceptée', color: 'success'})
+    } else {
+      setChip({label: 'En attente', color: 'info'})
+    }
+  }, [status]);
 
   const mutation = useMutation(giftAnswer, {
     onSuccess: (data) => {
@@ -102,11 +113,7 @@ const CardAdmin = ({ santa, userGifted, gift, message, id, status }) => {
           <Grid className={classes.root} sx={{ margin: 'auto' }} item xs={4}>
             <Grid container>
               <Stack direction="row" spacing={1}>
-              {status === 'reject' ?
-                  <Chip label="Refusé" color="error" />
-                  :
-                  <Chip label="Accepté" color="success" />
-              }
+              <Chip label={chip['label']} color={chip['color']} />
               </Stack>
               <Grid item xs={6}>
                 <IconButton title='Rejeter' color="primary" >

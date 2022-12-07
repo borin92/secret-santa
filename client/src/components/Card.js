@@ -40,7 +40,15 @@ function Username({ query }) {
   );
 }
 
-
+function Verb({ status }) {
+  if (status === 'pending') {
+    return " souhaite offrir "
+  } else if (status === 'approve') {
+    return " offrira "
+  } else {
+    return " souhaitais offrir "
+  }
+}
 
 function giftAnswer(data) {
   const response = fetch("http://localhost:3000/gift/updateStatus", {
@@ -67,7 +75,7 @@ const CardAdmin = ({ santa, userGifted, gift, message, id, status }) => {
   useEffect(() => {
     if ('reject' === status) {
       setChip({label: 'Refusée', color: 'error'})
-    } else if ('done' === status) {
+    } else if ('approve' === status) {
       setChip({label: 'Acceptée', color: 'success'})
     } else {
       setChip({label: 'En attente', color: 'info'})
@@ -91,45 +99,31 @@ const CardAdmin = ({ santa, userGifted, gift, message, id, status }) => {
   };
 
   return (
-    <Box sx={{ minWidth: 275, maxWidth: 1000, margin: 'auto' }}>
-      <React.Fragment>
-        <Grid container spacing={2} sx={{ marginTop: 5, border: 1, borderRadius: 1 }}>
-          <Grid item xs={8}>
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                <Username query={queryUser + santa}></Username> ==> <Username query={queryUser + userGifted}></Username>
-              </Typography>
-              <Typography variant="h5" component="div">
-                Gift : <span> {gift}</span>
-              </Typography>
-              <Typography variant="h5" component="div">
-                message :
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                {message}
-              </Typography>
-            </CardContent>
-          </Grid>
-          <Grid className={classes.root} sx={{ margin: 'auto' }} item xs={4}>
-            <Grid container>
-              <Stack direction="row" spacing={1}>
-              <Chip label={chip['label']} color={chip['color']} />
-              </Stack>
-              <Grid item xs={6}>
-                <IconButton title='Rejeter' color="primary" >
-                  <CloseIcon sx={{ fontSize: 60, color: 'red' }} onClick={() => HandleClick(id, 'reject')} />
-                </IconButton>
-              </Grid>
-              <Grid item xs={6}>
-                <IconButton title='Valider' color="primary" >
-                  <DoneIcon sx={{ fontSize: 60, color: 'green' }} onClick={() => HandleClick(id, 'approve')} />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </React.Fragment>
-    </Box>
+    <div className={"userCard"}>
+      <div className={"userInfo"}>
+        <div>
+          <Chip label={chip['label']} color={chip['color']} />
+        </div>
+        <div>
+          <p className={"userInfoName"}>
+            <strong><Username query={queryUser + santa} /></strong>
+            <Verb status={status} />
+            <strong>{gift}</strong> à <strong><Username query={queryUser + userGifted} /></strong>
+          </p>
+          <p className={"userInfoEmail"}><strong>Message :</strong> {message}</p>
+        </div>
+      </div>
+      { status === 'pending' &&
+        <div>
+          <IconButton title='Rejeter' color="primary">
+            <CloseIcon sx={{fontSize: 60, color: 'red'}} onClick={() => HandleClick(id, 'reject')}/>
+          </IconButton>
+          <IconButton title='Valider' color="primary">
+            <DoneIcon sx={{fontSize: 60, color: 'green'}} onClick={() => HandleClick(id, 'approve')}/>
+          </IconButton>
+        </div>
+      }
+    </div>
   )
 }
 

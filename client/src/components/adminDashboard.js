@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CardAdmin from './Card';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@mui/material';
-import { useQuery } from "react-query";
+import {useQuery} from "react-query";
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -17,24 +17,27 @@ export default function Admin() {
 
   const { data: giftList, isLoading } = useQuery(['user', 'http://localhost:3000/gifts'], () => fetch('http://localhost:3000/gifts').then((res) => res.json()))
   if (isLoading || giftList.length === 0) {
-    return (<p>loading...</p>)
+    return (<p>Chargement...</p>)
   }
   return (
     <div>
-      <Typography sx={{ marginBottom: 10 }} variant="h3" className={classes.title} >Admin dashboard</Typography>
-      <p>Pending</p>
-      {giftList.filter(e => e.isValid === "pending").map(item => (
-        <CardAdmin santa={item.santa} userGifted={item.userGifted} gift={item.gift} message={item.giftMessage} id={item.id} status={item.isValid} />
-      ))}
-      <p>approve</p>
-      {giftList.filter(e => e.isValid === "approve").map(item => (
-        <CardAdmin santa={item.santa} userGifted={item.userGifted} gift={item.gift} message={item.giftMessage} id={item.id} status={item.isValid} />
-      ))}
-      <p>decline</p>
-      {giftList.filter(e => e.isValid === "reject").map(item => (
-        <CardAdmin santa={item.santa} userGifted={item.userGifted} gift={item.gift} message={item.giftMessage} id={item.id} status={item.isValid} />
-      ))}
-
+      <Typography sx={{ marginBottom: 5, marginTop: 5 }} variant="h3" className={classes.title} >Dashboard Administrateur</Typography>
+      <div className={"wrapper"}>
+        <div className={"panel"}>
+          <h1 className={"panel-title"}>Cadeaux en attente</h1>
+          {giftList.filter(e => e.isValid === "pending").map(item => (
+            <CardAdmin santa={item.santa} userGifted={item.userGifted} gift={item.gift} message={item.giftMessage} id={item.id} status={item.isValid} />
+          ))}
+        </div>
+      </div>
+      <div className={"wrapper"}>
+        <div className={"panel"}>
+          <h1 className={"panel-title"}>Traités</h1>
+          {giftList.filter(e => e.isValid !== "pending").map(item => (
+            <CardAdmin santa={item.santa} userGifted={item.userGifted} gift={item.gift} message={item.giftMessage} id={item.id} status={item.isValid} />
+          ))}
+        </div>
+      </div>
     </div>
 
   )

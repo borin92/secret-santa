@@ -130,10 +130,6 @@ function Cards({ query }) {
       <div className={"container"}>
         {(userList || []).map((item) => (
           <CardItem item={item}></CardItem>
-
-
-
-
         ))}
       </div>
     </>

@@ -1,10 +1,3 @@
-<<<<<<< Updated upstream
-import { Button, Link } from '@material-ui/core';
-import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
-import { useMutation } from 'react-query'
-import Cookies from 'universal-cookie';
-=======
 import {Avatar, Button, Grid, Link, Paper, Typography,} from '@material-ui/core';
 import TextField from '@mui/material/TextField';
 import {makeStyles} from '@material-ui/core/styles';
@@ -36,7 +29,6 @@ const useStyles = makeStyles(theme => ({
 
 
  }));
->>>>>>> Stashed changes
 
 const checkAccount = async (data) => {
     if (!data) return null
@@ -54,18 +46,11 @@ const checkAccount = async (data) => {
 
 };
 function Login() {
-<<<<<<< Updated upstream
-
-=======
     const classes = useStyles();
->>>>>>> Stashed changes
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState("");
     const navigate = useNavigate();
-
-    // matthieu.brehamel@my-digital-school.org
-
 
     const mutation = useMutation(checkAccount, {
         onSuccess: (data) => {

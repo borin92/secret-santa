@@ -107,9 +107,6 @@ const CardAdmin = ({ santa, userGifted, gift, message, id, status }) => {
                   :
                   <Chip label="Accepté" color="success" />
               }
-
-
-                {/*<Chip label="success" color="success" />*/}
               </Stack>
               <Grid item xs={6}>
                 <IconButton title='Rejeter' color="primary" >

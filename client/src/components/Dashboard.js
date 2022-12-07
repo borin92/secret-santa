@@ -99,26 +99,9 @@ function Cards({ query }) {
       <h2>{(userList || []).length + " utilisateur(s) trouvé(s)"}</h2>
       <div className={"container"}>
         {(userList || []).map((item) => (
-<<<<<<< Updated upstream
           <div className={"userCard"}>
             <div className={"userInfo"}>
               <div>
-=======
-          <div className={"card"}>
-            <img
-              className={"cardimg"}
-              src="/icon-santa.png"
-              alt={"santa claus"}
-            />
-            <div className={"cardcontent"}>
-              <p>Né(e) le : {item.dob}</p>
-              <h3>{item.name}</h3>
-              <p className={"email"}>{item.email}</p>
-            </div>
-            <div className={"cardfooter"}>
-              <h3>Cadeaux</h3>
-              <a href="#" className={"click-arrow"} onClick={handleClickOpen}>
->>>>>>> Stashed changes
                 <img
                   className={"santa"}
                   src="/icon-santa.png"

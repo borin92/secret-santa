@@ -9,7 +9,6 @@ import {
 import Login from './components/Login'
 import Signin from './components/Signin';
 import Admin from './components/adminDashboard';
-import Verification from './components/Verification';
 import Dashboard from './components/Dashboard';
 import Cookies from 'universal-cookie';
 import { useState } from 'react';
@@ -22,11 +21,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 function App() {
-  const classes = useStyles();
-
   const cookies = new Cookies();
   const [auth] = useState(cookies.get('santa'))
-
 
   return (
     <>
@@ -43,6 +39,5 @@ function App() {
       </Router></>
   );
 }
-
 
 export default App;

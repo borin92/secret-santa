@@ -2,11 +2,12 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
-  Card,
   CardContent,
   Box,
   Grid,
-  IconButton
+  IconButton,
+  Stack,
+  Chip
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
@@ -30,8 +31,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Username({ query }) {
-  const { data: user, isLoading, refetch } = useQuery(['user', query], () => fetch(query).then((res) => res.json()))
-  console.log(user, query)
+  const { data: user } = useQuery(['user', query], () => fetch(query).then((res) => res.json()))
+
   return (
     <span>
       {user && user.name}
@@ -57,9 +58,9 @@ function giftAnswer(data) {
 };
 
 
-const CardAdmin = ({ santa, userGifted, gift, message, id }) => {
+const CardAdmin = ({ santa, userGifted, gift, message, id, status }) => {
   const queryUser = 'http://localhost:3000/user/';
-  const queryGift = 'http://localhost:3000/update/gift/';
+  // const queryGift = 'http://localhost:3000/update/gift/';
   const classes = useStyles();
 
   const mutation = useMutation(giftAnswer, {
@@ -100,27 +101,31 @@ const CardAdmin = ({ santa, userGifted, gift, message, id }) => {
           </Grid>
           <Grid className={classes.root} sx={{ margin: 'auto' }} item xs={4}>
             <Grid container>
+              <Stack direction="row" spacing={1}>
+              {status === 'reject' ?
+                  <Chip label="Refusé" color="error" />
+                  :
+                  <Chip label="Accepté" color="success" />
+              }
+
+
+                {/*<Chip label="success" color="success" />*/}
+              </Stack>
               <Grid item xs={6}>
                 <IconButton title='Rejeter' color="primary" >
                   <CloseIcon sx={{ fontSize: 60, color: 'red' }} onClick={() => HandleClick(id, 'reject')} />
                 </IconButton>
-
               </Grid>
-
               <Grid item xs={6}>
                 <IconButton title='Valider' color="primary" >
                   <DoneIcon sx={{ fontSize: 60, color: 'green' }} onClick={() => HandleClick(id, 'approve')} />
                 </IconButton>
               </Grid>
             </Grid>
-
           </Grid>
         </Grid>
-
       </React.Fragment>
     </Box>
-
-
   )
 }
 

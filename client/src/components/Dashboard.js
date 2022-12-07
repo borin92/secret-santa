@@ -1,18 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useQuery } from "react-query";
+import React, {useCallback, useState} from "react";
+import {useForm} from "react-hook-form";
+import {useMutation, useQuery} from "react-query";
 import "../style/dashboard.css";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
-import { Button, TextField } from "@material-ui/core";
-import { useMutation } from "react-query";
+import {Button, TextField} from "@material-ui/core";
 import Cookies from "universal-cookie";
 
 const createGift = async (data) => {
   if (!data) return null;
-  console.log(data);
 
-  const response = fetch("http://localhost:3000/gift/addOne", {
+  return fetch("http://localhost:3000/gift/addOne", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -26,7 +24,6 @@ const createGift = async (data) => {
       isValid: "pending",
     }),
   }).then((res) => res.json());
-  return response;
 };
 
 function DialogGift({ open, onClose, santaData, userId }) {
@@ -83,7 +80,7 @@ function DialogGift({ open, onClose, santaData, userId }) {
 function Cards({ query }) {
   const cookies = new Cookies();
   const santaData = cookies.get("santaId");
-  const { data: userList, isLoading, refetch } = useQuery(["user", query], () =>
+  const { data: userList } = useQuery(["user", query], () =>
     fetch(query).then((res) => res.json())
   );
   const [open, setOpen] = useState(false);
@@ -102,9 +99,26 @@ function Cards({ query }) {
       <h2>{(userList || []).length + " utilisateur(s) trouvé(s)"}</h2>
       <div className={"container"}>
         {(userList || []).map((item) => (
+<<<<<<< Updated upstream
           <div className={"userCard"}>
             <div className={"userInfo"}>
               <div>
+=======
+          <div className={"card"}>
+            <img
+              className={"cardimg"}
+              src="/icon-santa.png"
+              alt={"santa claus"}
+            />
+            <div className={"cardcontent"}>
+              <p>Né(e) le : {item.dob}</p>
+              <h3>{item.name}</h3>
+              <p className={"email"}>{item.email}</p>
+            </div>
+            <div className={"cardfooter"}>
+              <h3>Cadeaux</h3>
+              <a href="#" className={"click-arrow"} onClick={handleClickOpen}>
+>>>>>>> Stashed changes
                 <img
                   className={"santa"}
                   src="/icon-santa.png"
@@ -168,7 +182,6 @@ function Cards({ query }) {
 const Dashboard = () => {
   const {
     register,
-    reset,
     formState: { errors },
   } = useForm();
 

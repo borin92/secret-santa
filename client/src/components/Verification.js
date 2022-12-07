@@ -18,15 +18,14 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center'
 
     }
-
 }));
-
 
 export default function Verification() {
     const classes = useStyles();
 
     const a = 0
-    if (a == 0) {
+
+    if (a === 0) {
         return (
             <div className={classes.body}>
 

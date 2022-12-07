@@ -1,12 +1,46 @@
+<<<<<<< Updated upstream
 import { Button, Link } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 import { useMutation } from 'react-query'
 import Cookies from 'universal-cookie';
+=======
+import {Avatar, Button, Grid, Link, Paper, Typography,} from '@material-ui/core';
+import TextField from '@mui/material/TextField';
+import {makeStyles} from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {useMutation} from 'react-query'
+import Cookies from 'universal-cookie';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import { useNavigate } from "react-router-dom";
+
+const useStyles = makeStyles(theme => ({
+    body: {
+        minWidth: '75% !important',
+        padding: '20px auto'
+
+    },
+    paperStyle: {
+        padding :30,
+        marginTop:30,
+        height:'73vh',
+        width:450, 
+        margin:"0 auto"
+   },
+   avatarStyle: {
+    backgroundColor:'#1bbd7e'
+   },
+   btnstyle: {
+    margin:'8px 0'
+   }
+
+
+ }));
+>>>>>>> Stashed changes
 
 const checkAccount = async (data) => {
     if (!data) return null
-    const response = fetch('http://localhost:3000/user/connect', {
+    return fetch('http://localhost:3000/user/connect', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -17,14 +51,20 @@ const checkAccount = async (data) => {
             password: data.password
         })
     }).then(res => res.json())
-    return response
 
 };
 function Login() {
+<<<<<<< Updated upstream
 
+=======
+    const classes = useStyles();
+>>>>>>> Stashed changes
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState("")
+    const [errors, setErrors] = useState("");
+    const navigate = useNavigate();
+
+    // matthieu.brehamel@my-digital-school.org
 
 
     const mutation = useMutation(checkAccount, {
@@ -37,8 +77,9 @@ function Login() {
                 cookies.set("santa", data[0].name, { path: '/' });
                 cookies.set("santaId", data[0].id, { path: '/' });
             }
-        },
 
+            navigate("/admin");
+        },
     })
     const HandleClick = async () => {
 

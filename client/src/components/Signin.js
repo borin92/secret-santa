@@ -1,17 +1,8 @@
-
-
-import { 
-    Button, 
-    Link,
-    Grid,  
-    Paper,
-    Typography,
-    Avatar,
-     } from '@material-ui/core';
+import {Avatar, Button, Grid, Link, Paper, Typography,} from '@material-ui/core';
 import TextField from '@mui/material/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import React, { useState, useCallback } from 'react';
-import { useMutation } from 'react-query'
+import {makeStyles} from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {useMutation} from 'react-query'
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
 
@@ -40,7 +31,7 @@ const createAccount = async (data) => {
 
     if (!data) return null
 
-    const response = fetch('http://localhost:3000/user', {
+    return fetch('http://localhost:3000/user', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -51,7 +42,6 @@ const createAccount = async (data) => {
             password: data.password
         })
     }).then(res => res.json())
-    return response
 
 };
 function Signin() {
@@ -81,7 +71,6 @@ function Signin() {
     const [passwordVerif, setPasswordVerif] = useState("");
 
     const HandleClick = async () => {
-
         mutation.mutate({
             email: email,
             password: password

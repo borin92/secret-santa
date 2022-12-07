@@ -9,7 +9,6 @@ import Cookies from "universal-cookie";
 
 const createGift = async (data) => {
   if (!data) return null;
-
   return fetch("http://localhost:3000/gift/addOne", {
     method: "POST",
     headers: {
@@ -29,7 +28,6 @@ const createGift = async (data) => {
 function DialogGift({ open, onClose, santaData, userId }) {
   const [gift, setGift] = useState("");
   const [message, setMessage] = useState("");
-  console.log(santaData, userId)
   const mutation = useMutation(createGift, {
     onSuccess: (data) => {
       console.log(data);
@@ -47,6 +45,7 @@ function DialogGift({ open, onClose, santaData, userId }) {
       giftMessage: message,
       isValid: "pending",
     });
+    onClose(false);
   };
 
   return (
@@ -81,13 +80,12 @@ function CardItem({ item }) {
   const cookies = new Cookies();
   const santaData = cookies.get("santaId");
   const [open, setOpen] = useState(false);
-  console.log(santaData)
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = (e) => {
-    e.preventDefault();
+  const handleClose = () => {
+
     setOpen(false);
   };
   return <div className={"userCard"}>
